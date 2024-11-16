@@ -68,4 +68,32 @@ public class TareaRepositoryImp implements TareaRepository{
                     .executeUpdate();
         }
     }
+
+    public List<Tarea> searchByStatus(Boolean status,Integer idUser){
+        try(Connection con = sql2o.open()){
+            String sql = "SELECT * FROM tarea WHERE idUser=:idUser AND status=:status";
+            return con.createQuery(sql)
+                    .addParameter("idUser", idUser)
+                    .addParameter("status", status)
+                    .executeAndFetch(Tarea.class);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public List<Tarea> searchByKeywordAndStatus(Boolean status, String keyword, Integer idUser){
+        try(Connection con = sql2o.open()){
+            String searchKeyword = (keyword == null || keyword.isEmpty()) ? "%" : "%" + keyword + "%";
+            String sql = "SELECT * FROM tarea WHERE idUser=:idUser AND status=:status AND (nombre LIKE :keyword OR descripcion LIKE :keyword)";
+            return con.createQuery(sql)
+                    .addParameter("idUser",idUser)
+                    .addParameter("status",status)
+                    .addParameter("keyword",searchKeyword)
+                    .executeAndFetch(Tarea.class);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }

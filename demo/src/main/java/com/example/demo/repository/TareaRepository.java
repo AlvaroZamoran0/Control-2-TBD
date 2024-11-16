@@ -9,6 +9,7 @@ public interface TareaRepository {
     public List<Tarea> getAll();
     public String update(Tarea tarea, Integer Id);
     public void delete(Integer Id);
-
+    public List<Tarea> searchByStatus(Boolean status, Integer idUser);
+    public List<Tarea> searchByKeywordAndStatus(Boolean status, String keyword, Integer idUser);
 
 }

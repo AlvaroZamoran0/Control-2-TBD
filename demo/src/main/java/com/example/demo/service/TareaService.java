@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TareaService {
@@ -26,5 +27,13 @@ public class TareaService {
 
     public void delete(Integer id){
         tareaRepository.delete(id);
+    }
+
+    public List<Tarea> searchFilter(Boolean status, String keyword, Integer idUser){
+        if(!Objects.equals(keyword, "empty")){
+            return tareaRepository.searchByKeywordAndStatus(status, keyword, idUser);
+        }else{
+            return tareaRepository.searchByStatus(status,idUser);
+        }
     }
 }

@@ -31,4 +31,10 @@ public class TareaController {
     public void deleteTarea(@PathVariable int id) {
         tareaService.delete(id);
     }
+
+    @GetMapping("/tarea/search/{status}/{keyword}/{idUser}")
+    public List<Tarea> searchStatusOnly(@PathVariable Boolean status,@PathVariable String keyword, @PathVariable int idUser) {
+        return tareaService.searchFilter(status,keyword,idUser);
+    }
+
 }
