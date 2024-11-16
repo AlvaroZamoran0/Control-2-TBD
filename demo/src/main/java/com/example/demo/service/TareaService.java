@@ -21,6 +21,10 @@ public class TareaService {
         return tareaRepository.getAll();
     }
 
+    public Tarea getById(Integer id){
+        return tareaRepository.getById(id);
+    }
+
     public String update(Tarea tarea, Integer id){
         return tareaRepository.update(tarea, id);
     }

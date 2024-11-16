@@ -33,12 +33,23 @@ public class TareaRepositoryImp implements TareaRepository{
        }
     }
 
+    public Tarea getById(Integer id){
+        try(Connection con = sql2o.open()){
+            String sql = "SELECT * FROM tarea WHERE id=:id";
+            return con.createQuery(sql)
+                    .addParameter("id",id)
+                    .executeAndFetchFirst(Tarea.class);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public List<Tarea> getAll(){
         try(Connection con = sql2o.open()){
             String sql = "SELECT * FROM tarea";
             return con.createQuery(sql).executeAndFetch(Tarea.class);
         } catch(Exception e){
-            e.printStackTrace();
             System.out.println("Error fetch tareas: " +e.getMessage());
             return null;
         }

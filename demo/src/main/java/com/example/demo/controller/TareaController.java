@@ -22,6 +22,11 @@ public class TareaController {
         return tareaService.getAll();
     }
 
+    @GetMapping("/tarea/get/{id}")
+    public Tarea getTareaById(@PathVariable Integer id) {
+        return tareaService.getById(id);
+    }
+
     @PutMapping("/tarea/update/{id}")
     public String updateTarea(@PathVariable int id, @RequestBody Tarea tarea) {
         return tareaService.update(tarea,id);
