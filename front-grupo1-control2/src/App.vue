@@ -1,47 +1,63 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div id="app">
+    <!-- Barra de navegación fija en la parte superior -->
+    <nav class="navbar">
+      <ul>
+        <li><router-link to="/">Login</router-link></li>
+        <li><router-link to="/home">Home</router-link></li>
+        <li><router-link to="/crearTarea">Crear Tarea</router-link></li>
+      </ul>
+    </nav>
+    <div class="content">
+      <router-view></router-view>
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+};
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2c3e50;
+  color: white;
+  padding: 10px 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.navbar ul li {
+  margin: 0 20px;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.navbar ul li a:hover {
+  text-decoration: underline;
+}
+
+
+.content {
+  margin-top: 60px; 
+  padding: 20px;
 }
 </style>
