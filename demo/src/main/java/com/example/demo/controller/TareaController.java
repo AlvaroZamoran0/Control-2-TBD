@@ -22,6 +22,11 @@ public class TareaController {
         return tareaService.getAll();
     }
 
+    @GetMapping("/tarea/user/{idUser}")
+    public List<Tarea> getTareasByUser(@PathVariable int idUser) {
+        return tareaService.getAllUser(idUser);
+    }
+
     @GetMapping("/tarea/get/{id}")
     public Tarea getTareaById(@PathVariable Integer id) {
         return tareaService.getById(id);

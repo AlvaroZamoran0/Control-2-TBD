@@ -40,4 +40,8 @@ public class TareaService {
             return tareaRepository.searchByStatus(status,idUser);
         }
     }
+
+    public List<Tarea> getAllUser(Integer idUser){
+        return tareaRepository.getAllUser(idUser);
+    }
 }

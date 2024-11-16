@@ -12,5 +12,6 @@ public interface TareaRepository {
     public void delete(Integer Id);
     public List<Tarea> searchByStatus(Boolean status, Integer idUser);
     public List<Tarea> searchByKeywordAndStatus(Boolean status, String keyword, Integer idUser);
+    public List<Tarea> getAllUser(Integer idUser);
 
 }

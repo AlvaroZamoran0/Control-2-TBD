@@ -107,4 +107,16 @@ public class TareaRepositoryImp implements TareaRepository{
             return null;
         }
     }
+
+    public List<Tarea> getAllUser(Integer idUser){
+        try(Connection con = sql2o.open()){
+            String sql = "SELECT * FROM tarea WHERE idUser=:idUser";
+            return con.createQuery(sql)
+                    .addParameter("idUser", idUser)
+                    .executeAndFetch(Tarea.class);
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
