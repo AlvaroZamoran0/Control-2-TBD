@@ -18,9 +18,9 @@ public class UsuarioRepositoryImp implements UsuarioRepository {
     public Usuario crear(Usuario usuario) {
         try (Connection con = sql2o.open()) {
             String sql = "INSERT INTO usuario (nombre,correo,contrasena)" +
-                    "VALUES (:nombre,:correo,:contrasena)";
+                    "VALUES (:username,:correo,:contrasena)";
             con.createQuery(sql)
-                    .addParameter("nombre", usuario.getNombre())
+                    .addParameter("nombre", usuario.getUsername())
                     .addParameter("correo", usuario.getCorreo())
                     .addParameter("contrasena", usuario.getContrasena())
                     .executeUpdate();
@@ -58,7 +58,7 @@ public class UsuarioRepositoryImp implements UsuarioRepository {
         try (Connection con = sql2o.open()) {
             String sql = "UPDATE usuario SET nombre = :nombre, correo = :correo WHERE id = :id";
             con.createQuery(sql)
-                    .addParameter("nombre", usuario.getNombre())
+                    .addParameter("nombre", usuario.getUsername())
                     .addParameter("correo", usuario.getCorreo())
                     .addParameter("id", id)
                     .executeUpdate();
@@ -78,11 +78,11 @@ public class UsuarioRepositoryImp implements UsuarioRepository {
         }
     }
 
-    public Usuario searchByNombre(String nombre) {
+    public Usuario searchByNombre(String username) {
         try (Connection con = sql2o.open()) {
-            String sql = "SELECT * FROM usuario WHERE nombre = :nombre";
+            String sql = "SELECT * FROM usuario WHERE username = :username";
             return con.createQuery(sql)
-                    .addParameter("nombre", nombre)
+                    .addParameter("username", username)
                     .executeAndFetchFirst(Usuario.class);
         } catch (Exception e) {
             System.out.println(e.getMessage());

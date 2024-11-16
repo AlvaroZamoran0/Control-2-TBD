@@ -16,8 +16,8 @@ public class UsuarioService {
     public Usuario getById(Integer id) { return usuarioRepository.getById(id); }
     public String update(Usuario usuario, Integer id) { return usuarioRepository.update(usuario, id); }
     public void delete(Integer id) { usuarioRepository.delete(id); }
-    public String iniciarSesion(String nombre, String contrasena) {
-        Usuario usuario = usuarioRepository.searchByNombre(nombre);
+    public String iniciarSesion(String username, String contrasena) {
+        Usuario usuario = usuarioRepository.searchByNombre(username);
         if (usuario != null && usuario.getContrasena().equals(contrasena)) {
             return "Inicio de sesión exitoso";
         }
@@ -27,7 +27,7 @@ public class UsuarioService {
         if (usuarioRepository.searchByCorreo(usuario.getCorreo()) != null) {
             return "El correo ya esta registrado";
         }
-        if (usuarioRepository.searchByNombre(usuario.getNombre()) != null) {
+        if (usuarioRepository.searchByNombre(usuario.getUsername()) != null) {
             return "El nombre de usuario ya existe";
         }
         usuarioRepository.crear(usuario);
