@@ -13,11 +13,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/usuario/crear")
-    public Usuario crearUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.crear(usuario);
-    }
-
     @GetMapping("/usuario/all")
     public List<Usuario> getAllUsuarios() {
         return usuarioService.getAll();
@@ -38,8 +33,15 @@ public class UsuarioController {
         usuarioService.delete(id);
     }
 
-    @GetMapping("/usuario/search/correo/{correo}")
-    public List<Usuario> searchByCorreo(@PathVariable String correo) {
-        return usuarioService.searchByCorreo(correo);
+    @PostMapping("/login")
+    public String iniciarSesion(@RequestBody Usuario usuario) {
+        return usuarioService.iniciarSesion(usuario.getNombre(), usuario.getContrasena());
     }
+
+    @PostMapping("/register")
+    public String registro(@RequestBody Usuario usuario) {
+        return usuarioService.registro(usuario);
+    }
+
+
 }

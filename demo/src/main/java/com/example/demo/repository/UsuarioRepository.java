@@ -10,5 +10,6 @@ public interface UsuarioRepository {
     public Usuario getById(Integer id);
     public String update(Usuario usuario, Integer id);
     public void delete(Integer id);
-    public List<Usuario> searchByCorreo(String correo);
+    public Usuario searchByNombre(String nombre);
+    public Usuario searchByCorreo(String correo);
 }

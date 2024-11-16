@@ -12,17 +12,26 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-    public Usuario crear(Usuario usuario) { return usuarioRepository.crear(usuario); }
     public List<Usuario> getAll() { return usuarioRepository.getAll(); }
     public Usuario getById(Integer id) { return usuarioRepository.getById(id); }
     public String update(Usuario usuario, Integer id) { return usuarioRepository.update(usuario, id); }
     public void delete(Integer id) { usuarioRepository.delete(id); }
-    public List<Usuario> searchByCorreo(String correo) { return usuarioRepository.searchByCorreo(correo); }
-        //if (correo == null || correo.isEmpty()) {
-        //    return usuarioRepository.getAll();
-        //} else {
-        //    return usuarioRepository.searchByCorreo(correo);
-        //}
-    //}
+    public String iniciarSesion(String nombre, String contrasena) {
+        Usuario usuario = usuarioRepository.searchByNombre(nombre);
+        if (usuario != null && usuario.getContrasena().equals(contrasena)) {
+            return "Inicio de sesión exitoso";
+        }
+        return "Nombre o contraseña incorrecta";
+    }
+    public String registro(Usuario usuario) {
+        if (usuarioRepository.searchByCorreo(usuario.getCorreo()) != null) {
+            return "El correo ya esta registrado";
+        }
+        if (usuarioRepository.searchByNombre(usuario.getNombre()) != null) {
+            return "El nombre de usuario ya existe";
+        }
+        usuarioRepository.crear(usuario);
+        return "Usuario creado con exito";
+    }
 
 }
