@@ -6,6 +6,7 @@
         <li><router-link to="/">Login</router-link></li>
         <li><router-link to="/home">Home</router-link></li>
         <li><router-link to="/crearTarea">Crear Tarea</router-link></li>
+        <li><router-link to="/listaTareas">Tareas</router-link></li>
       </ul>
     </nav>
     <div class="content">

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1>Bienvenido, Usuario</h1>
+    <h1>Bienvenido, Panzamala</h1>
     <p>¡Bienvenido a tu panel de control!</p>
   </div>
 </template>
@@ -14,7 +14,7 @@ export default {
 <style scoped>
 .home {
   text-align: center;
-  padding-top: 100px; /* Ajusta según sea necesario */
+  padding-top: 100px;
 }
 
 h1 {

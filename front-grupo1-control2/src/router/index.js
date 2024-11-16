@@ -2,6 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import RegisterLogin from '../components/RegisterLogin.vue';
 import Home from '../components/Home.vue';
 import CrearTarea from '../components/CrearTarea.vue';
+import ListaTareas from '@/components/ListaTareas.vue';
+import DetalleTarea from '../components/DetalleTarea.vue';
+import EditarTarea from '@/components/EditarTarea.vue';
 
 const routes = [
   {
@@ -22,6 +25,25 @@ const routes = [
     component: CrearTarea,
     meta: { requiresAuth: true }
   },
+  {
+    path: '/listaTareas', 
+    name: 'ListaTareas',
+    component: ListaTareas,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/DetalleTarea/:id',
+    name: 'DetalleTarea',
+    component: DetalleTarea,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/EditarTarea/:id',
+    name: 'EditarTarea',
+    component: EditarTarea,
+    meta: { requiresAuth: true },
+  }
+
 ];
 
 const router = createRouter({

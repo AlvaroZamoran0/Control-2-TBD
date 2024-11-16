@@ -4,20 +4,20 @@
     <form @submit.prevent="handleCreateTask">
       <!-- Nombre de la tarea -->
       <div class="form-group">
-        <label for="taskName">Nombre de la tarea:</label>
-        <input type="text" v-model="taskName" required placeholder="Introduce el nombre de la tarea" />
+        <label for="nombre">Nombre de la tarea:</label>
+        <input type="text" v-model="nombre" required placeholder="Introduce el nombre de la tarea" />
       </div>
 
       <!-- Descripción de la tarea -->
       <div class="form-group">
-        <label for="taskDescription">Descripción de la tarea:</label>
-        <textarea v-model="taskDescription" required placeholder="Escribe una breve descripción de la tarea"></textarea>
+        <label for="descripcion">Descripción de la tarea:</label>
+        <textarea v-model="descripcion" required placeholder="Escribe una breve descripción de la tarea"></textarea>
       </div>
 
-      <!-- Fecha de vencimiento -->
+      <!-- Fecha de término -->
       <div class="form-group">
-        <label for="taskDueDate">Fecha de vencimiento:</label>
-        <input type="date" v-model="taskDueDate" required />
+        <label for="fechaTermino">Fecha de término:</label>
+        <input type="date" v-model="fechaTermino" required />
       </div>
 
       <button type="submit">Crear Tarea</button>
@@ -26,39 +26,46 @@
 </template>
 
 <script>
+import tareaService from "@/services/tareaService";
+
 export default {
   name: "CrearTarea",
   data() {
     return {
-      taskName: "",
-      taskDescription: "",
-      taskDueDate: "", // Campo para la fecha de vencimiento
-      userId: localStorage.getItem('userId') || null, // Obtener el ID del usuario desde el localStorage
+      nombre: "", 
+      descripcion: "",
+      fechaTermino: "",
+      idUser: localStorage.getItem("userId") || null,
+      status: false, // false = pendiente, true = completada
     };
   },
+
   methods: {
-    // Lógica para crear la tarea
     async handleCreateTask() {
-      if (!this.userId) {
+      if (!this.idUser) {
         alert("No se encontró el usuario autenticado.");
         return;
       }
 
-      // Crear el objeto de la tarea
       const newTask = {
-        taskName: this.taskName,
-        taskDescription: this.taskDescription,
-        taskDueDate: this.taskDueDate,
-        userId: this.userId, // Asociar el ID del usuario a la tarea
+        nombre: this.nombre,
+        descripcion: this.descripcion,
+        fechaTermino: this.fechaTermino,
+        idUser: this.idUser,
+        status: this.status,
       };
 
-      // Aquí podrías hacer una llamada a la API para guardar la tarea en la base de datos
-      console.log("Tarea creada:", newTask);
-
-      // Limpiar los campos después de crear la tarea
-      this.taskName = "";
-      this.taskDescription = "";
-      this.taskDueDate = "";
+      try {
+        const response = await tareaService.crearTarea(newTask);
+        console.log("Tarea creada:", response.data);
+        alert("Tarea creada exitosamente!");
+        this.nombre = "";
+        this.descripcion = "";
+        this.fechaTermino = "";
+      } catch (error) {
+        console.error("Error al crear la tarea:", error);
+        alert("Hubo un error al crear la tarea. Intenta nuevamente.");
+      }
     },
   },
 };

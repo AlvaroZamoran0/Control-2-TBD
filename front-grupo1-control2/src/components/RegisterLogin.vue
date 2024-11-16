@@ -4,7 +4,7 @@
       <h2>{{ isLogin ? "Iniciar Sesión" : "Registro" }}</h2>
 
       <form @submit.prevent="isLogin ? handleLogin() : handleRegister()">
-        <!-- Campo para nombre de usuario en ambos modos -->
+
         <div class="form-group">
           <label>Nombre de Usuario:</label>
           <input type="text" v-model="username" required />
@@ -42,6 +42,7 @@
 
 <script>
 import axios from "axios";
+import usuarioService from "@/services/usuarioService";
 
 export default {
   name: "registerLogin",
@@ -64,22 +65,31 @@ export default {
     // Funcion que limpia los campos de username, email, password y confirmPassword, cada vez que se cambia de modo
     clearFields() {
       this.username = "";
-      this.email = "";   // Limpiamos también el campo de correo
+      this.email = "";   
       this.password = "";
       this.confirmPassword = "";
     },
 
-    // Funcion que maneja el inicio de sesion del usuario
+    // Funcion que maneja el inicio de sesion del usuario login
     async handleLogin() {
       try {
-        const response = await axios.post("/api/login", {
-          username: this.username, 
-          password: this.password,
-        });
-        localStorage.setItem("token", response.data.token); // Guarda el token
-        this.$router.push("/home"); // Redirige a una página protegida home
+        const response = await loginService.login(this.username, this.password);
+
+        // Verificar que el backend regrese los datos necesarios
+        if (response.data.userId) {
+          localStorage.setItem("userId", response.data.userId);
+          localStorage.setItem("nombreUsuario", response.data.nombre);
+          this.$router.push("/home");
+        } else {
+          alert("No se encontraron datos del usuario. Verifica las credenciales.");
+        }
       } catch (error) {
-        alert("Error al iniciar sesión. Verifica tus credenciales.");
+        if (error.response && error.response.status === 401) {
+          alert("Credenciales incorrectas. Intenta nuevamente.");
+        } else {
+          alert("Error al iniciar sesión. Intenta más tarde.");
+        }
+        console.error("Error en el inicio de sesión:", error);
       }
     },
 
@@ -90,14 +100,13 @@ export default {
         return;
       }
       try {
-        await axios.post("/api/register", {
-          username: this.username,  // Incluimos el nombre de usuario en el registro
-          email: this.email,        // Incluimos también el correo electrónico
+        await usuarioService.register({
+          username: this.username,
+          email: this.email,
           password: this.password,
         });
         alert("Registro exitoso. Ahora puedes iniciar sesión.");
-        this.$router.push("/"); // Redirige a la página de inicio de sesión
-
+        this.$router.push("/");
       } catch (error) {
         alert("Error al registrarse. Intenta nuevamente.");
       }
