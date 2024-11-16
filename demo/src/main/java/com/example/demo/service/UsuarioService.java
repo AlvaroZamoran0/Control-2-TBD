@@ -16,12 +16,12 @@ public class UsuarioService {
     public Usuario getById(Integer id) { return usuarioRepository.getById(id); }
     public String update(Usuario usuario, Integer id) { return usuarioRepository.update(usuario, id); }
     public void delete(Integer id) { usuarioRepository.delete(id); }
-    public String iniciarSesion(String username, String contrasena) {
+    public Usuario iniciarSesion(String username, String contrasena) {
         Usuario usuario = usuarioRepository.searchByNombre(username);
         if (usuario != null && usuario.getContrasena().equals(contrasena)) {
-            return "Inicio de sesión exitoso";
+            return usuario;
         }
-        return "Nombre o contraseña incorrecta";
+        return null;
     }
     public String registro(Usuario usuario) {
         if (usuarioRepository.searchByCorreo(usuario.getCorreo()) != null) {

@@ -34,7 +34,7 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public String iniciarSesion(@RequestBody Usuario usuario) {
+    public Usuario iniciarSesion(@RequestBody Usuario usuario) {
         return usuarioService.iniciarSesion(usuario.getUsername(), usuario.getContrasena());
     }
 
