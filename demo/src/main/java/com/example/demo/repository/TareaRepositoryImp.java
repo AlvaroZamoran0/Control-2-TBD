@@ -57,11 +57,11 @@ public class TareaRepositoryImp implements TareaRepository{
 
     public String update(Tarea tarea, Integer Id){
         try(Connection con = sql2o.open()){
-            String sql = "UPDATE tarea SET nombre = :nombre, descripcion = :descripcion, fecha= :fecha, status= :status WHERE id=:id";
+            String sql = "UPDATE tarea SET nombre = :nombre, descripcion = :descripcion, fechaTermino= :fechaTermino, status= :status WHERE id=:id";
             con.createQuery(sql)
                     .addParameter("nombre", tarea.getNombre())
                     .addParameter("descripcion", tarea.getDescripcion())
-                    .addParameter("fecha", tarea.getFechaTermino())
+                    .addParameter("fechaTermino", tarea.getFechaTermino())
                     .addParameter("status", tarea.getStatus())
                     .addParameter("id", Id)
                     .executeUpdate();
@@ -119,5 +119,19 @@ public class TareaRepositoryImp implements TareaRepository{
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public List<Tarea> searchByKeyword(String keyword, Integer idUser){
+        try(Connection con = sql2o.open()){
+            String sql = "SELECT * FROM tarea WHERE idUser=:idUser AND (nombre LIKE :keyword OR descripcion LIKE :keyword)";
+            return con.createQuery(sql)
+                    .addParameter("keyword", keyword)
+                    .addParameter("idUser", idUser)
+                    .executeAndFetch(Tarea.class);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
     }
 }
