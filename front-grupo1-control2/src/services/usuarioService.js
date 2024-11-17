@@ -9,7 +9,7 @@ const login = (name, password) => {
       username: name, 
       contrasena: password,
     });
-  };
+};
 
 const getAllUsers = () => {
     return httpClient.get("/usuario/all");

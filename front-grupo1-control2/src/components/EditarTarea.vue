@@ -70,6 +70,7 @@
         this.descripcion = tarea.descripcion;
         this.fechaTermino = tarea.fechaTermino;
         this.status = tarea.status;
+        
       } catch (error) {
         console.error("Error al cargar la tarea:", error);
         alert("Hubo un problema al cargar los datos de la tarea.");

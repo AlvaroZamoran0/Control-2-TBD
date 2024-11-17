@@ -43,7 +43,7 @@ public class TareaController {
     }
 
     @GetMapping("/tarea/search/{status}/{keyword}/{idUser}")
-    public List<Tarea> searchStatusOnly(@PathVariable Boolean status,@PathVariable String keyword, @PathVariable int idUser) {
+    public List<Tarea> searchStatusOnly(@PathVariable(required = false) Boolean status,@PathVariable String keyword, @PathVariable int idUser) {
         return tareaService.searchFilter(status,keyword,idUser);
     }
 

@@ -73,12 +73,12 @@ export default {
     // Funcion que maneja el inicio de sesion del usuario login
     async handleLogin() {
       try {
-        const response = await loginService.login(this.username, this.password);
+        const response = await usuarioService.login(this.username, this.password);
 
         // Verificar que el backend regrese los datos necesarios
-        if (response.data.userId) {
-          localStorage.setItem("userId", response.data.userId);
-          localStorage.setItem("nombreUsuario", response.data.nombre);
+        if (response.data.id) {
+          localStorage.setItem("id", response.data.id);
+          localStorage.setItem("nombreUsuario", response.data.username);
           this.$router.push("/home");
         } else {
           alert("No se encontraron datos del usuario. Verifica las credenciales.");

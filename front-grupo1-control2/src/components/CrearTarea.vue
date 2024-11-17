@@ -35,7 +35,7 @@ export default {
       nombre: "", 
       descripcion: "",
       fechaTermino: "",
-      idUser: localStorage.getItem("userId") || null,
+      idUser: localStorage.getItem("id") || null,
       status: false, // false = pendiente, true = completada
     };
   },
@@ -62,6 +62,8 @@ export default {
         this.nombre = "";
         this.descripcion = "";
         this.fechaTermino = "";
+        this.$router.push("/home");
+        
       } catch (error) {
         console.error("Error al crear la tarea:", error);
         alert("Hubo un error al crear la tarea. Intenta nuevamente.");

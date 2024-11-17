@@ -82,11 +82,13 @@ export default {
             this.$router.push(`/DetalleTarea/${tareaId}`);
         },
         async filtrarTareas() {
+
             try {
                 const searchKeyword = this.palabraClave.trim() === "" ? "empty" : this.palabraClave.trim();
                 let response;
+                
                 if (this.status === null) {
-                    response = await tareaService.searchAll(this.userId, searchKeyword);
+                    response = await tareaService.searchStatusOnly("null", searchKeyword, this.userId);
                 } else {
                     response = await tareaService.searchStatusOnly(this.status, searchKeyword, this.userId);
                 }
@@ -99,8 +101,9 @@ export default {
             if (this.filtroSeleccionado === 'pendientes') {
                 this.status = false;
             } else if (this.filtroSeleccionado === 'completadas') {
-                this.status = true;
+                this.status = true; 
             } else {
+                this.status = null;
                 this.obtenerTareas();
             }
         }

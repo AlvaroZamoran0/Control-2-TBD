@@ -14,8 +14,20 @@
         <strong>Estado:</strong> {{ tarea.status ? 'Completada' : 'Pendiente' }}
       </p>
       <div class="botones">
-        <button class="boton-revisar" @click="marcarCompletado">Marcar como Completada</button>
+        <button 
+          class="boton-revisar" 
+          @click="marcarCompletado" 
+          v-if="!tarea.status"
+        >
+          Marcar como Completada
+      </button>
         <button class="boton-revisar" @click="editarTarea">Editar Tarea</button>
+        <button 
+          class="boton-eliminar" 
+          @click="eliminarTarea"
+        >
+          Eliminar Tarea
+        </button>
       </div>
     </div>
     <div v-else>
@@ -51,10 +63,24 @@ export default {
         console.error('Error al obtener la tarea:', error);
       }
     },
+
+    async eliminarTarea() {
+      if (!this.tarea) {
+        return;
+      }
+      try {
+        await tareasService.deleteTarea(this.tarea.id);
+        alert('¡Tarea eliminada!');
+        this.$router.push("/listaTareas");
+      } catch (error) {
+        console.error('Error al eliminar la tarea:', error);
+      }
+    },
+
     async marcarCompletado() {
-      if (!this.tarea) 
-      return;
-      
+      if (!this.tarea) {
+        return;
+      }
       try {
         const updatedTarea = {
             id: this.tarea.id,
@@ -65,19 +91,20 @@ export default {
             status: true,
         };
         await tareasService.updateTarea(this.tarea.id, updatedTarea);
-        this.tarea.status = true; // Actualizar el estado localmente
+        this.tarea.status = true; 
         alert('¡Tarea marcada como completada!');
+        this.$router.push("/listaTareas");
+        
       } catch (error) {
         console.error('Error al marcar como completada:', error);
       }
     },
     editarTarea() {
-      // Aquí redirigimos a una vista de edición
       this.$router.push({ name: 'EditarTarea', params: { id: this.tarea.id } });
     },
   },
   mounted() {
-    this.traerTarea(); // Llama al método al montar el componente
+    this.traerTarea(); 
   },
 };
 </script>
@@ -152,4 +179,24 @@ h1 {
   transform: scale(0.98);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
 }
+
+.boton-eliminar {
+  padding: 10px;
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.boton-eliminar:hover {
+  background-color: #c82333;
+}
+
+.boton-eliminar:active {
+  background-color: #bd2130;
+  transform: scale(0.98);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+}
+
 </style>
