@@ -8,4 +8,5 @@ public interface NotificacionRepository {
     Notificacion crear(Notificacion notificacion);
     List<Notificacion> getAllByUser(Integer idUser);
     void marcarTodasComoLeidas(Integer idUser);
+    void marcarLeida(Integer idLeida);
 }

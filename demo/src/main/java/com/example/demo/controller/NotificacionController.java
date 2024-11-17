@@ -40,4 +40,9 @@ public class NotificacionController {
     }
 
 
+
+    @PutMapping("/marcarLeida/{id}")
+    public void marcarLeida(@PathVariable Integer id) {
+        notificacionService.marcarLeida(id);
+    }
 }

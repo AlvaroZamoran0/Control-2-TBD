@@ -51,4 +51,6 @@ public class NotificacionService {
     public void marcarTodasComoLeidas(Integer idUser) {
         notificacionRepository.marcarTodasComoLeidas(idUser);
     }
+
+    public void marcarLeida(Integer id) {notificacionRepository.marcarLeida(id);}
 }
