@@ -124,10 +124,13 @@ public class TareaRepositoryImp implements TareaRepository{
     public List<Tarea> searchByKeyword(String keyword, Integer idUser){
         try(Connection con = sql2o.open()){
             String sql = "SELECT * FROM tarea WHERE idUser=:idUser AND (nombre LIKE :keyword OR descripcion LIKE :keyword)";
-            return con.createQuery(sql)
-                    .addParameter("keyword", keyword)
+            String searchKeyword = (keyword == null || keyword.isEmpty()) ? "%" : "%" + keyword + "%";
+            List<Tarea> tareas = con.createQuery(sql)
+                    .addParameter("keyword", searchKeyword)
                     .addParameter("idUser", idUser)
                     .executeAndFetch(Tarea.class);
+            System.out.println(tareas);
+            return tareas;
         } catch (Exception e){
             System.out.println(e.getMessage());
             return null;
