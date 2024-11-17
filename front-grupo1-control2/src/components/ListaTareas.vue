@@ -58,7 +58,7 @@ export default {
         return {
             tareas: [{id: 1, nombre: 'Tarea 1', descripcion: 'Descripción de la tarea 1', fechaTermino: '2021-12-31', status: false}],
             filtroSeleccionado: 'todo',
-            userId: 1,
+            userId: localStorage.getItem('id') || null,
             status: null,
             palabraClave: ""
         };
