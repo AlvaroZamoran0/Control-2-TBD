@@ -29,17 +29,20 @@ public class NotificacionController {
         return notificacionService.getAllByUser(idUser);
     }
 
+    @GetMapping("/userAND/{idUser}")
+    public List<Notificacion> getNotificacionesByUserAND(@PathVariable Integer idUser) {
+        return notificacionService.getAllByUserAnd(idUser);
+    }
+
     @PutMapping("/marcarTodasLeidas/{idUser}")
     public void marcarTodasLasNotificacionesComoLeidas(@PathVariable Integer idUser) {
         notificacionService.marcarTodasComoLeidas(idUser);
     }
 
-    @PostMapping("/checkTareasAVencer")
-    public void checkTareasVencidas(@RequestParam Integer id_user) {
-        notificacionService.checkTareasVencidas(id_user);
+    @PostMapping("/checkTareasAVencer/{idUser}")
+    public void checkTareasVencidas(@PathVariable Integer idUser) {
+        notificacionService.checkTareasVencidas(idUser);
     }
-
-
 
     @PutMapping("/marcarLeida/{id}")
     public void marcarLeida(@PathVariable Integer id) {

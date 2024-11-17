@@ -9,4 +9,5 @@ public interface NotificacionRepository {
     List<Notificacion> getAllByUser(Integer idUser);
     void marcarTodasComoLeidas(Integer idUser);
     void marcarLeida(Integer idLeida);
+    List<Notificacion> getAllByUserAnd(Integer idUser);
 }

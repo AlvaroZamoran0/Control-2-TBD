@@ -1,12 +1,13 @@
 <template>
   <div id="app">
     <!-- Barra de navegación fija en la parte superior -->
-    <nav class="navbar">
+    <nav class="navbar" v-if="!$route.meta.hideNavBar">
       <ul>
-        <li><router-link to="/">Login</router-link></li>
+        <li><router-link to="/">Salir</router-link></li>
         <li><router-link to="/home">Home</router-link></li>
         <li><router-link to="/crearTarea">Crear Tarea</router-link></li>
         <li><router-link to="/listaTareas">Tareas</router-link></li>
+        <li><router-link to="/notificacion">Notificaciones</router-link></li>
       </ul>
     </nav>
     <div class="content">

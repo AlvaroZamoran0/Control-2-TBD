@@ -5,13 +5,15 @@ import CrearTarea from '../components/CrearTarea.vue';
 import ListaTareas from '@/components/ListaTareas.vue';
 import DetalleTarea from '../components/DetalleTarea.vue';
 import EditarTarea from '@/components/EditarTarea.vue';
+import Notificaciones from '@/components/Notificaciones.vue';
+
 
 const routes = [
   {
     path: '/',
     name: 'Login',
     component: RegisterLogin,
-    meta: { requiresAuth: false }
+    meta: { requiresAuth: false, hideNavBar: true }
   },
   {
     path: '/home',
@@ -42,7 +44,14 @@ const routes = [
     name: 'EditarTarea',
     component: EditarTarea,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/notificacion',
+    name: 'Notificaciones',
+    component: Notificaciones,
+    meta: { requiresAuth: true },
   }
+ 
 
 ];
 

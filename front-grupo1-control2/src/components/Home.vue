@@ -1,11 +1,6 @@
 <template>
   <div class="home">
-    <h1>Bienvenido, Alvaro weko</h1>
-    <h1>Bienvenido, Martinex</h1>
-    <h1>Bienvenido, Braulio</h1>
-    <h1>Bienvenido, Panzamala</h1>
-    <h1>Bienvenido, Cami</h1>
-    <h1>Bienvenido, Manu</h1>
+    <h1>Bienvenido, {{ user.name }}</h1>
     <p>¡Bienvenido a tu panel de control!</p>
   </div>
 </template>
@@ -13,6 +8,13 @@
 <script>
 export default {
   name: "Home",
+  data() {
+    return {
+      user: {
+        name: localStorage.getItem("nombreUsuario") || "Usuario",
+      },
+    };
+  },
 };
 </script>
 

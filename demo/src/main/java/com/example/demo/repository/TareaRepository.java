@@ -13,9 +13,6 @@ public interface TareaRepository {
     public List<Tarea> searchByStatus(Boolean status, Integer idUser);
     public List<Tarea> searchByKeywordAndStatus(Boolean status, String keyword, Integer idUser);
     public List<Tarea> getAllUser(Integer idUser);
-<<<<<<< Updated upstream
     public List<Tarea> searchByKeyword(String keyword, Integer idUser);
 
-=======
->>>>>>> Stashed changes
 }

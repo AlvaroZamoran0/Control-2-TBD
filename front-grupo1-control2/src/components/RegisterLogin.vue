@@ -55,7 +55,11 @@ export default {
       confirmPassword: "", 
     };
   },
+  created() { // Limpiar localStorage cuando el componente se crea
+    localStorage.clear();
+  },
   methods: {
+
     // Boton asociado al cambio del formulario de login a registro y viceversa
     toggleMode() {
       this.isLogin = !this.isLogin;
@@ -72,6 +76,10 @@ export default {
 
     // Funcion que maneja el inicio de sesion del usuario login
     async handleLogin() {
+      if (!this.username || !this.password) {
+        alert("Por favor, ingresa tu nombre de usuario y contraseña.");
+        return;
+      }
       try {
         const response = await usuarioService.login(this.username, this.password);
 

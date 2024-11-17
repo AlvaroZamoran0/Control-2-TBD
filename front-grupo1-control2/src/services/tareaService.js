@@ -28,6 +28,10 @@ const searchStatusOnly = (status, keyword, idUser) => {
     return httpClient.get(`/tarea/search/${status}/${keyword}/${idUser}`);
 }
 
+const searchByKeywordOnly = (keyword, idUser) => {
+    return httpClient.get(`/tarea/search/${keyword}/${idUser}`);
+}
+
 export default {
     crearTarea,
     getAllTareas,
@@ -35,4 +39,5 @@ export default {
     getTareasById,
     updateTarea,
     deleteTarea,
-    searchStatusOnly };
+    searchStatusOnly,
+    searchByKeywordOnly};

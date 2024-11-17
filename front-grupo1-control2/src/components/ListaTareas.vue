@@ -88,7 +88,11 @@ export default {
                 let response;
                 
                 if (this.status === null) {
-                    response = await tareaService.searchStatusOnly("null", searchKeyword, this.userId);
+                    if(searchKeyword === "empty") {
+                        this.obtenerTareas();
+                    } else {
+                        response = await tareaService.searchByKeywordOnly(searchKeyword, this.userId);
+                    }
                 } else {
                     response = await tareaService.searchStatusOnly(this.status, searchKeyword, this.userId);
                 }
