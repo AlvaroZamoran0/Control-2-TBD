@@ -20,16 +20,22 @@ public class NotificacionService {
     private NotificacionRepository notificacionRepository;
     private TareaRepository tareaRepository;
 
-    @Scheduled(cron = "0 * * * * ?") // Ejecuta cada hora
-    public void checkTareasVencidas() {
-        LocalDate hoy = LocalDate.now();
-        LocalDate proximoDia = hoy.plusDays(1);
-        
-        List<Tarea> tareas = tareaRepository.getAll();
+
+    public void checkTareasVencidas(Integer id_user) {
+        List<Notificacion> notificaciones = notificacionRepository.getAllByUser(id_user);
+        List<Tarea> tareas = tareaRepository.getAllUser(id_user);
+
         for (Tarea tarea : tareas) {
-            if (tarea.getFechaTermino().toInstant().atZone(ZoneId.systemDefault()).toLocalDate().isBefore(proximoDia)) {
-                // Aquí puedes agregar la lógica para enviar la notificación
-                System.out.println("La tarea '" + tarea.getNombre() + "' está próxima a vencer.");
+            boolean existe = false;
+            for (Notificacion notificacion : notificaciones) {
+                if (notificacion.getIdTarea() == tarea.getId()){
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                Notificacion notificacion = new Notificacion(null, id_user, tarea.getId(), "Tarea proxima a vencer", false );
+                Notificacion notificacionCreada = crear(notificacion);
             }
         }
     }

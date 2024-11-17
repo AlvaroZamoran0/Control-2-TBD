@@ -33,7 +33,7 @@ public class NotificacionRepositoryImp implements NotificacionRepository {
 
     public List<Notificacion> getAllByUser(Integer idUser) {
         try (Connection con = sql2o.open()) {
-            String sql = "SELECT * FROM notificaciones WHERE idUser = :idUser";
+            String sql = "SELECT * FROM notificaciones WHERE idUser = :idUser AND leida = false";
             return con.createQuery(sql)
                       .addParameter("idUser", idUser)
                       .executeAndFetch(Notificacion.class);

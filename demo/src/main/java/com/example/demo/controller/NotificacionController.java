@@ -33,4 +33,11 @@ public class NotificacionController {
     public void marcarTodasLasNotificacionesComoLeidas(@PathVariable Integer idUser) {
         notificacionService.marcarTodasComoLeidas(idUser);
     }
+
+    @PostMapping("/checkTareasAVencer")
+    public void checkTareasVencidas(@RequestParam Integer id_user) {
+        notificacionService.checkTareasVencidas(id_user);
+    }
+
+
 }
