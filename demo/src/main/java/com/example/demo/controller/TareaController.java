@@ -47,4 +47,9 @@ public class TareaController {
         return tareaService.searchFilter(status,keyword,idUser);
     }
 
+    @GetMapping("/tarea/search/{keyword}/{idUser}")
+    public List<Tarea> searchKeywordOnly(@PathVariable String keyword, @PathVariable int idUser) {
+        return tareaService.searchFilterKeyword(keyword,idUser);
+    }
+
 }

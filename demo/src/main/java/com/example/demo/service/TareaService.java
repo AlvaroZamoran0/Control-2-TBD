@@ -35,13 +35,14 @@ public class TareaService {
 
     public List<Tarea> searchFilter(Boolean status, String keyword, Integer idUser){
         if(!Objects.equals(keyword, "empty")){
-            if(status == null){
-                return tareaRepository.searchByKeyword(keyword,idUser);
-            }
             return tareaRepository.searchByKeywordAndStatus(status, keyword, idUser);
         }else{
             return tareaRepository.searchByStatus(status,idUser);
         }
+    }
+
+    public List<Tarea> searchFilterKeyword(String keyword, Integer idUser){
+        return tareaRepository.searchByKeyword(keyword, idUser);
     }
 
     public List<Tarea> getAllUser(Integer idUser){
