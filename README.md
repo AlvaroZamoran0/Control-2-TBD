@@ -4,9 +4,13 @@ Control 2 TBD Grupo 1
 Intrucciones de ejecucion:
 
 Base de datos:
-Mediante psql generar la base de datos y cargar la poblacion de las tablas desde los archivos:
-- dbCreate.sql
-- loadData.sql
+Mediante psql generar la base de datos con el archivo dbCreate.sql, para poblar la
+base de datos, utilizar directamente el frontend de la aplicacion, pues pueden producirse
+errores al crear nuevas instancias desde frontend si se pobla primero con el archivo loadData.sql,
+especificamente con los id autoincrementales.
+
+En caso de querer realizarse pruebas mediante postman tambien se puede poblar con
+el archivo loadData.sql.
 
 Backend:
 Mediante la IDE Intellij IDEA ejecutar el backend (carpeta demo).
