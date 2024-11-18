@@ -33,8 +33,8 @@ CREATE TABLE Tarea (
 -- Tabla: Notificaciones
 CREATE TABLE notificaciones (
     id SERIAL PRIMARY KEY,        
-    id_user INTEGER NOT NULL,     
-    id_tarea BIGINT NOT NULL,     
+    idUser INTEGER NOT NULL,     
+    idTarea BIGINT NOT NULL,     
     mensaje TEXT NOT NULL,        
     leida BOOLEAN NOT NULL        
 );
