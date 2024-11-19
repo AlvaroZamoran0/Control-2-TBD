@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import notificacionService from '@/services/notificacionService';
 export default {
   name: "Home",
   data() {
@@ -14,6 +15,9 @@ export default {
         name: localStorage.getItem("nombreUsuario") || "Usuario",
       },
     };
+  },
+  created() {
+    notificacionService.checkTareasVencidas(localStorage.getItem("id"));
   },
 };
 </script>

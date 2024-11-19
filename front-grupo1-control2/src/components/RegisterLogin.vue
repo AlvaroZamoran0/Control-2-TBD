@@ -108,14 +108,17 @@ export default {
         return;
       }
       try {
-        await usuarioService.register({
+        await usuarioService.createUser({
           username: this.username,
-          email: this.email,
-          password: this.password,
+          correo: this.email,
+          contrasena: this.password,
         });
         alert("Registro exitoso. Ahora puedes iniciar sesión.");
-        this.$router.push("/");
+        this.$router.push("/").then(() => {
+          window.location.reload();
+        });
       } catch (error) {
+        console.log("Error al registrar usuario:", error);
         alert("Error al registrarse. Intenta nuevamente.");
       }
     },

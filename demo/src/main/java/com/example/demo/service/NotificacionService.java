@@ -67,4 +67,10 @@ public class NotificacionService {
     }
 
     public void marcarLeida(Integer id) {notificacionRepository.marcarLeida(id);}
+
+    public Integer getAllNoLeidas(Integer idUser){
+        List<Notificacion> notificaciones = notificacionRepository.getAllNoLeidas(idUser);
+        System.out.println(notificaciones);
+        return notificaciones.size();
+    }
 }

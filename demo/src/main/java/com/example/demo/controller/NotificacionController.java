@@ -48,4 +48,11 @@ public class NotificacionController {
     public void marcarLeida(@PathVariable Integer id) {
         notificacionService.marcarLeida(id);
     }
+
+    @GetMapping("/user/noleidas/{id}")
+    public Integer getNoleidasByUser(@PathVariable Integer id) {
+
+        return notificacionService.getAllNoLeidas(id);
+
+    }
 }

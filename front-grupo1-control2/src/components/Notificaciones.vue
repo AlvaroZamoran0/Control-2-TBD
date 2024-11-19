@@ -77,6 +77,7 @@ export default {
                 await notificacionService.checkTarea(id);
                 alert("Notificación marcada como leída");
                 await this.obtenerNotificacionesAND();
+                window.location.reload();
             } catch (error) {
                 console.error("Error al marcar como leída:", error);
             }

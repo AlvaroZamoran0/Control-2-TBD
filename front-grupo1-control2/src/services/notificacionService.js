@@ -24,11 +24,16 @@ const checkTarea = (idNotificacion) => {
     return httpClient.put(`/notificaciones/marcarLeida/${idNotificacion}`);
 };
 
+const checkCantidadNoLeidas = (idUser) => {
+    return httpClient.get(`/notificaciones/user/noleidas/${idUser}`);
+};
+
 export default {
     createNotificacion,
     getNotificacionesByUser,
     getNotificacionesByUserAND,
     marcarTodasLeidas,
     checkTareasVencidas,
-    checkTarea
+    checkTarea,
+    checkCantidadNoLeidas
 };

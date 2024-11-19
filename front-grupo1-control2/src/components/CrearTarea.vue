@@ -62,7 +62,9 @@ export default {
         this.nombre = "";
         this.descripcion = "";
         this.fechaTermino = "";
-        this.$router.push("/home");
+        this.$router.push("/home").then(() => {
+          window.location.reload();
+        });
         
       } catch (error) {
         console.error("Error al crear la tarea:", error);

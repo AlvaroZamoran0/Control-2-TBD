@@ -25,14 +25,17 @@
             <table class="tabla-tareas">
                 <thead>
                     <tr>
-                        <th class="left-box">Nombre</th>
+                        <th class="left-box">ID tarea</th>
+                        <th>Nombre</th>
                         <th>Descripción</th>
                         <th>Fecha de Vencimiento</th>
-                        <th class="right-box">Estado</th>
+                        <th>Estado</th>
+                        <th class="right-box">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="tarea in tareas" :key="tarea.id">
+                        <td class="elem-tabla">{{ tarea.id }}</td>
                         <td class="elem-tabla">{{ tarea.nombre }}</td>
                         <td class="elem-tabla">{{ cortarTexto(tarea.descripcion, 50) }}</td>
                         <td class="elem-tabla">{{ tarea.fechaTermino }}</td>

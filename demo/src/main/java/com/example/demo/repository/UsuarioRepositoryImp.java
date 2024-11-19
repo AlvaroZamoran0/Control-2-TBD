@@ -17,10 +17,10 @@ public class UsuarioRepositoryImp implements UsuarioRepository {
 
     public Usuario crear(Usuario usuario) {
         try (Connection con = sql2o.open()) {
-            String sql = "INSERT INTO usuario (nombre,correo,contrasena)" +
+            String sql = "INSERT INTO usuario (username,correo,contrasena)" +
                     "VALUES (:username,:correo,:contrasena)";
             con.createQuery(sql)
-                    .addParameter("nombre", usuario.getUsername())
+                    .addParameter("username", usuario.getUsername())
                     .addParameter("correo", usuario.getCorreo())
                     .addParameter("contrasena", usuario.getContrasena())
                     .executeUpdate();

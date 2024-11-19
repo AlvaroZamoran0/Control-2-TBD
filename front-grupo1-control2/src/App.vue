@@ -3,11 +3,11 @@
     <!-- Barra de navegación fija en la parte superior -->
     <nav class="navbar" v-if="!$route.meta.hideNavBar">
       <ul>
-        <li><router-link to="/">Salir</router-link></li>
+        <li><router-link to="/" >Salir</router-link></li>
         <li><router-link to="/home">Home</router-link></li>
         <li><router-link to="/crearTarea">Crear Tarea</router-link></li>
         <li><router-link to="/listaTareas">Tareas</router-link></li>
-        <li><router-link to="/notificacion">Notificaciones</router-link></li>
+        <li><router-link to="/notificacion">Notificaciones <span v-if="unreadCount > 0" class="badge">{{ unreadCount }}</span></router-link></li>
       </ul>
     </nav>
     <div class="content">
@@ -17,8 +17,30 @@
 </template>
 
 <script>
+import notificacionService from './services/notificacionService';
 export default {
   name: "App",
+  data() {
+    return {
+      unreadCount: 0,
+    };
+  },
+  created() {
+    this.loadUnreadNotifications(); // Cargar las notificaciones no leídas al montar el componente
+  },
+  methods: {
+    async loadUnreadNotifications() {
+      if (!localStorage.getItem("id")) {
+        return;
+      }
+      try {
+        this.unreadCount = (await notificacionService.checkCantidadNoLeidas(localStorage.getItem("id"))).data;
+        console.log("Notificaciones no leídas:", this.unreadCount);
+      } catch (error) {
+        console.error("Error al cargar las notificaciones:", error);
+      }
+    },
+  }
 };
 </script>
 
@@ -57,9 +79,26 @@ export default {
   text-decoration: underline;
 }
 
+.badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 0.3em 0.6em;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-left: 5px;
+  text-align: center;
+  min-width: 1.5em;
+}
+
+.badge::after {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+}
 
 .content {
-  margin-top: 60px; 
+  margin-top: 60px;
   padding: 20px;
 }
 </style>

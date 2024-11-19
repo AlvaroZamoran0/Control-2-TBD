@@ -77,4 +77,16 @@ public class NotificacionRepositoryImp implements NotificacionRepository {
         }
 
     }
+
+    public List<Notificacion> getAllNoLeidas(Integer idUser){
+        try (Connection con = sql2o.open()) {
+            String sql = "SELECT * FROM notificaciones WHERE idUser = :idUser AND leida = FALSE";
+            return con.createQuery(sql)
+                    .addParameter("idUser",idUser)
+                    .executeAndFetch(Notificacion.class);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
 }
